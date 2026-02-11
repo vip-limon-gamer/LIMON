@@ -1,3 +1,26 @@
+// Add this code to the TOP of your script.js file
+
+// Auto-play background music
+document.addEventListener('DOMContentLoaded', () => {
+    const music = document.getElementById('background-music');
+    
+    // Try to play music automatically
+    const playMusic = () => {
+        music.play().catch(() => {
+            // If autoplay is blocked, play on first user interaction
+            const startMusic = () => {
+                music.play();
+                document.removeEventListener('click', startMusic);
+                document.removeEventListener('touchstart', startMusic);
+            };
+            document.addEventListener('click', startMusic);
+            document.addEventListener('touchstart', startMusic);
+        });
+    };
+    
+    // Start music after loading screen
+    setTimeout(playMusic, 3500);
+});
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
     const mainContent = document.getElementById('main-content');
